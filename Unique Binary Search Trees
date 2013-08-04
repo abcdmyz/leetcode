@@ -1,0 +1,30 @@
+class Solution {
+public:
+
+    int countTree(int n)
+    {
+        if (n <= 1)
+        {   
+            return 1;
+        }
+        
+        int sum = 0;
+        int left, right;
+        
+        for (int i=1; i<=n; i++)
+        {
+            left = countTree(i-1);
+            right = countTree(n-i);
+            
+            sum += left * right;
+        }
+        
+        return sum;
+    }
+
+    int numTrees(int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        return countTree(n);
+    }
+};
