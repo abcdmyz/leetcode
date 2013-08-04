@@ -1,0 +1,58 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void BST(TreeNode *node, TreeNode *&n1, TreeNode *&n2, TreeNode *&prev)
+    {
+        if (node == NULL)
+        {
+            return;
+        }
+        
+        BST(node->left, n1, n2, prev);
+        
+        if (prev && prev->val > node->val)
+        {
+            n2 = node;
+            if (n1 == NULL)
+            {
+                n1 = prev;
+            }
+        }
+        
+        prev = node;
+        BST(node->right, n1, n2, prev);
+    }
+    void recoverTree(TreeNode *root) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        
+        TreeNode *n1 = NULL;
+        TreeNode *n2 = NULL;
+        TreeNode *prev = NULL;
+        int val;
+        
+        if (root == NULL)
+        {
+            return;
+        }
+        
+        BST(root, n1, n2, prev);
+        
+        if (n1 != NULL && n2 != NULL)
+        {
+            val = n1->val;
+            n1->val = n2->val;
+            n2->val = val;
+        }
+        
+        
+    }
+};
