@@ -1,0 +1,51 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<TreeNode *>BST(int n, int start)
+    {
+        vector<TreeNode*> sub_tree;
+        
+        if (n < 1)
+        {
+            sub_tree.push_back(NULL);
+            return sub_tree;
+        }
+        
+        vector<TreeNode*> left_tree;
+        vector<TreeNode*> right_tree;
+        
+        for (int i=1; i<=n; i++)
+        {
+            left_tree = BST(i-1, start);
+            right_tree = BST(n-i, start+i);
+            
+            for (int left=0; left<left_tree.size(); left++)
+            {
+                for (int right=0; right<right_tree.size(); right++)
+                {
+                    TreeNode *node = new TreeNode(i+start);
+                    node->left = left_tree[left];
+                    node->right = right_tree[right];
+                    
+                    sub_tree.push_back(node);
+                }
+            }
+        }
+        
+        return sub_tree;
+    }
+    
+    vector<TreeNode *> generateTrees(int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        return BST(n, 0);
+    }
+};
