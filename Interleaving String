@@ -13,7 +13,7 @@ public:
         }
         
         
-        bool f[100][100];
+        bool f[200][200];
         
         memset(f,0,sizeof(f));
         f[0][0] = true;
