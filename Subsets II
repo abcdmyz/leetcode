@@ -1,0 +1,36 @@
+class Solution {
+public:
+   void dfs(vector<int> &S, int start, int end, vector<vector<int>>& result, vector<int>& cur)
+    {        
+        int temp;
+        bool hastemp = false;
+        
+        for (int i=start; i<=end; i++)
+        {
+            if (hastemp && S[i]==temp)
+                continue;
+            
+            cur.push_back(S[i]);
+            result.push_back(cur);
+            dfs(S, i+1, end, result,cur);
+            temp = cur[cur.size()-1];
+            hastemp = true;
+            cur.pop_back();
+        }
+    }
+    
+    vector<vector<int> > subsetsWithDup(vector<int> &S) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        
+        sort(S.begin(), S.end());
+        
+        vector<int> empty;
+        vector<vector<int>> result;
+        
+        result.push_back(empty);
+        dfs(S, 0, S.size()-1, result, empty);
+        
+        return result;
+    }
+};
