@@ -1,0 +1,45 @@
+class Solution {
+public:
+    void merge(int A[], int m, int B[], int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        vector<int> v;
+        
+        int i=0;
+        int j=0;
+        
+        while (i<m && j<n)
+        {
+            if (A[i] < B[j])
+            {
+                v.push_back(A[i]);
+                i++;
+            }
+            else
+            {
+                v.push_back(B[j]);
+                j++;
+            }
+        }
+        
+        if ( i<m )
+        {
+            for (int p=i; p<m; p++)
+            {
+                v.push_back(A[p]);
+            }
+        }
+        else
+        {
+            for (int p=j; p<n; p++)
+            {
+                v.push_back(B[p]);
+            }
+        }
+        
+        for (int i=0; i<m+n; i++)
+        {
+            A[i]=v[i];
+        }
+    }
+};
