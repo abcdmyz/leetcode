@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int largestRectangleArea(vector<int> &height) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        stack<int> s;
+        
+        int i=0;
+        int result=0;
+        
+        height.push_back(0);
+        while (i<height.size())
+        {
+            if (s.empty() || height[i]>=height[s.top()])
+            {
+                s.push(i);
+                i++;
+            }
+            else
+            {
+                int top = s.top();
+                s.pop();
+                int temp;
+                if (s.empty())
+                {
+                    temp = height[top]*i;
+                }
+                else
+                {
+                    temp = height[top]*(i-s.top()-1);
+                }
+                if (temp>result)
+                    result = temp;
+            }
+        }
+        
+        return result;
+    }
+};
