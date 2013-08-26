@@ -1,0 +1,31 @@
+class Solution {
+public:
+    void dfs(int n, int k, int now, int count, vector<int>& one, vector<vector<int>>& all)
+    {
+        if (count > k)
+        {
+            return;
+        }
+        
+        for (int i=now; i<=n; i++)
+        {
+            one.push_back(i);
+            if (count==k)
+            {
+                all.push_back(one);
+            }
+            dfs(n,k,i+1, count+1, one, all);
+            one.pop_back();
+        }
+    }
+    
+    vector<vector<int> > combine(int n, int k) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        
+        vector<int> one;
+        vector<vector<int>> all;
+        dfs(n,k,1,1,one,all);
+        return all;
+    }
+};
