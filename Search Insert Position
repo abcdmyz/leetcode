@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int searchInsert(int A[], int n, int target) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        int head = 0;
+        int tail = n - 1 ;
+        int mid;
+        
+        while(head <= tail)
+        {
+            mid = head + (tail - head) / 2;
+            
+            if (A[mid] >  target)
+            {
+                tail = mid - 1;
+            }
+            else if (A[mid] <  target)
+            {
+                head = mid + 1;
+            }
+            else
+            {
+                break;
+            }
+        }
+        
+        if (head <= tail)
+        {
+            return mid;
+        }
+        else
+        {
+            return head;   
+        }
+    }
+};
