@@ -1,0 +1,48 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        // Note: The Solution object is instantiated only once and is reused by each test case.
+        int len = s.length();
+        if (len == 0)
+        {
+            return true;
+        }
+        if (len == 1)
+        {
+            return false;
+        }
+        
+        stack<char> st;
+        
+        st.push(s[0]);
+        int i = 1;
+        
+        while (i<s.length())
+        {
+            if (s[i] == '(' || s[i] == '{' || s[i] == '[')
+            {
+                st.push(s[i]);
+            }
+            else if (s[i] == ')' || s[i] == '}' || s[i] == ']')
+            {
+                if (st.empty())
+                {
+                    return false;
+                }
+                
+                char top =  st.top();
+                if ((st.top() == '(' && s[i] != ')') || (st.top() == '{' && s[i] != '}') || (st.top() == '[' && s[i] != ']'))
+                {
+                    return false;
+                }
+                st.pop();
+            }
+            i++;
+        }
+        if (st.empty())
+        {
+            return true;
+        }
+        return false;
+    }
+};
