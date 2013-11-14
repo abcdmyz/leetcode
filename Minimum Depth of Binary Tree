@@ -1,0 +1,45 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int dfs(TreeNode *root)
+    {
+        if (root == NULL)
+        {
+            return 0;
+        }
+        if ( root->left == NULL && root->right == NULL)
+        {
+            return 1;
+        }
+        
+        int left = 99999;
+        int right = 99999;
+        
+        if (root->left != NULL)
+        {
+            left = dfs(root->left);
+        }
+        if (root->right != NULL)
+        {
+            right = dfs(root->right);
+        }
+        
+        return (left < right ? left : right) + 1;
+        
+    }
+    
+    int minDepth(TreeNode *root) {
+        // IMPORTANT: Please reset any member data you declared, as
+        // the same Solution instance will be reused for each test case.
+        
+        return dfs(root);
+    }
+};
