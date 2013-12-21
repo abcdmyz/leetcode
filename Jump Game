@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool canJump(int A[], int n) 
+    {
+        int pos = 0;
+        
+        while (pos <= n-1)
+        {
+            pos += A[pos];
+            
+            if (pos >= n-1)
+            {
+                return true;
+            }
+            if (A[pos] == 0)
+            {
+                return false;
+            }
+        }
+        return true;
+        
+    }
+};
