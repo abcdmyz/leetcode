@@ -1,0 +1,87 @@
+class Solution {
+public:
+    int threeSumClosest(vector<int> &num, int target) 
+    {
+        if (num.size()<=3)
+        {
+            int sum=0;
+            for (int i=0; i<num.size(); i++)
+            {
+                sum+=num[i];
+            }
+            return sum;
+        }
+        
+        sort(num.begin(), num.end());
+        
+        int i=0;
+        int j=num.size()-1;
+        int result=num[0]+num[1]+num[2];
+        int sum;
+        
+        while (i<j-1)
+        {
+            int k1=i+1;
+            int k2=j-1;
+            int third=target-num[i]-num[j];
+            sum=num[i]+num[j]+num[i+1];
+            if (sum==target)
+            {
+                return target;
+            }
+            
+            while (k1<=k2)
+            {
+                int mid=k1+((k2-k1)/2);
+                
+                if (num[mid]>third)
+                {
+                    k2=mid-1;
+                }
+                else if (num[mid]<third)
+                {
+                    k1=mid+1;
+                }
+                else
+                {
+                    return target;
+                }
+            }
+            if (k2<=i)
+            {
+                sum=num[i]+num[j]+num[k1];
+            }
+            else if (k1>=j)
+            {
+                sum=num[i]+num[j]+num[k2];
+            }
+            else 
+            {
+                if (abs(num[i]+num[j]+num[k1]-target) <= abs(num[i]+num[j]+num[k2]-target))
+                {
+                    sum=num[i]+num[j]+num[k1];
+                }
+                else
+                {
+                    sum=num[i]+num[j]+num[k2];
+                }
+            }
+            if (abs(sum-target) < abs(result-target))
+            {
+                result=sum;
+            }
+            
+            if (sum>target)
+            {
+                j--;
+            }
+            else
+            {
+                i++;
+            }
+        }
+        
+        return result;
+    }
+    
+};
