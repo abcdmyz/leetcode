@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int lengthOfLastWord(const char *s) 
+    {
+        const char *tmp = s;
+        int len = 0;
+        
+        while (*tmp)
+        {
+            if (*tmp != ' ')
+            {
+                len++;
+            }
+            else if(*tmp == ' ' && *(tmp+1) && *(tmp+1) != ' ')
+            {
+                len = 0;
+            }
+            
+            tmp++;
+        }
+        
+        return len;
+        
+    }
+};
