@@ -1,0 +1,42 @@
+class Solution 
+{
+public:
+    void reverseWords(string &s) 
+    {
+        int last = 0;
+        int cur = 0;
+        int len = s.length();
+        string newS = "";
+        bool first = true;
+
+        while (cur < len && s[cur] == ' ')
+        {
+            cur++;
+        }
+        last = cur;
+
+        while (cur <= len)
+        {
+            if (s[cur] == ' ' || cur == len )
+            {
+                if (!first)
+                {
+                    newS.insert(0, " ");
+                }
+
+                newS.insert(0, s, last, cur - last);
+                first = false;
+ 
+                while (cur <= len  && s[cur] == ' ')
+                {
+                    cur++;
+                }
+                last = cur;
+            }
+            
+            cur++;
+        }
+        
+        s = newS;
+    }
+};
