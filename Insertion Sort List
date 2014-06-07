@@ -1,0 +1,77 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution 
+{
+public:
+    ListNode *insertionSortList(ListNode *head) 
+    {
+        if (head == NULL || head->next ==  NULL)
+        {
+            return head;
+        }
+        
+        ListNode *cur = head->next;
+        ListNode *last = head;
+        
+        int cur_count = 1;
+        
+        while (cur != NULL)
+        {
+            if (cur->val <= head->val)
+            {
+                ListNode *ch_cur = cur;
+                ListNode *ch_last = last;
+                
+                cur = cur->next;
+ 
+                ch_last->next = ch_cur->next;
+                ch_cur->next = head;
+                head = ch_cur;
+            }
+            else
+            {
+                ListNode *iter_cur = head->next;
+                ListNode *iter_last = head;
+    
+                int iter_count = 1;
+    
+                while (iter_count <= cur_count && iter_cur != NULL && cur->val > iter_last->val)
+                {
+                    if (iter_cur->val >= cur->val && iter_count < cur_count)
+                    {
+                        ListNode *ch_cur = cur;
+                        
+                        last->next = cur->next;
+                        cur = cur->next;
+                        
+                        iter_last->next = ch_cur;
+                        ch_cur->next = iter_cur;
+                        
+                        break;
+                    }
+                    else if (iter_count == cur_count)
+                    {
+                        last = cur;
+                        cur = cur->next;
+                        
+                        break;
+                    }
+                    
+                    iter_last = iter_cur;
+                    iter_cur = iter_cur->next;
+                    iter_count++;
+                }
+            }
+            
+            cur_count++;
+        }
+    
+        return head;
+    }
+};
