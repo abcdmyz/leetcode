@@ -1,0 +1,81 @@
+class Solution {
+public:
+
+    int n,m;
+    queue<int> q1;
+    queue<int> q2;
+    
+    void add(int i, int j, vector<vector<char>> &board)
+    {
+        if ( i>=0 && i<n && j>=0 && j<m && board[i][j]=='O' )
+        {
+            board[i][j]='+';
+
+            q1.push(i);
+            q2.push(j);
+        }
+    }
+    
+    void dfs( int i, int j, vector<vector<char>> &board )
+    {
+        while (!q1.empty())
+        {
+            q1.pop();
+        }
+        while (!q2.empty())
+        {
+            q2.pop();
+        }
+        
+        add(i, j, board);
+        
+        while (!q1.empty() && !q2.empty())
+        {
+            i = q1.front();
+            j = q2.front();
+            q1.pop();
+            q2.pop();
+ 
+            add(i-1,j, board);
+            add(i+1,j, board);
+            add(i,j-1, board);
+            add(i,j+1, board);
+        }
+    }
+    
+    void solve(vector<vector<char>> &board) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        
+        n = board.size();
+
+        if ( n==0 )
+            return;
+        m = board[0].size();
+
+        for ( int i=0; i<m; i++ )
+        {
+            dfs(0,i, board);
+            dfs(n-1,i, board);
+        }
+        
+        
+        for ( int i=0; i<n; i++ )
+        {
+            dfs(i,0, board);
+            dfs(i,m-1, board);
+        }
+        
+        for ( int i=0; i<n; i++ )
+        {
+            for ( int j=0; j<m; j++ )
+            {
+                if ( board[i][j]=='O' )
+                    board[i][j]='X';
+                else if ( board[i][j]=='+' )
+                    board[i][j]='O';
+            }
+        }
+        
+    }
+};
