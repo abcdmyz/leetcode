@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int longestConsecutive(vector<int> &num) 
+    {
+        if (num.size() <=1 )
+        {
+            return num.size();
+        }
+        
+        
+        set<int> allNum;
+        
+        for (int i = 0; i < num.size(); i++)
+        {
+            allNum.insert(num[i]);
+        }
+        
+        int max = 1;
+        
+        while (!allNum.empty())
+        {
+            int tmpNum = *(allNum.begin());
+            int sum = 0;
+            
+            while (allNum.find(tmpNum) != allNum.end())
+            {
+                sum++;
+                allNum.erase(tmpNum);
+                tmpNum++;
+            }
+            
+            if (sum > max)
+            {
+                max = sum;
+            }
+        }
+        
+        return max;
+    }
+};
