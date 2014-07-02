@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int minimumTotal(vector<vector<int> > &triangle) {
+        vector<int> f1(triangle.size(), 0);
+        vector<int> f2(triangle.size(), 0);
+        
+        if (triangle.size() == 0)
+        {
+            return 0;
+        }
+        else if (triangle.size() == 1)
+        {
+            return triangle[0][0];
+        }
+        
+        f1[0] = triangle[0][0];
+
+        for (int i = 1; i < triangle.size(); i++)
+        {
+            for (int j = 1; j < triangle[i].size() - 1; j++)
+            {
+                f2[j] = triangle[i][j];
+                if (f1[j-1] < f1[j])
+                {
+                    f2[j] += f1[j-1];
+                }
+                else
+                {
+                    f2[j] += f1[j];
+                }
+            }
+            
+            f2[0] = f1[0] + triangle[i][0];
+            f2[i] = f1[i-1] + triangle[i][i];
+            
+            f1 = f2;
+        }
+        
+        int min = f2[0];
+        for (int i = 1; i < triangle.size(); i++)
+        {
+            if (f2[i] < min)
+            {
+                min = f2[i];
+            }
+        }
+        
+        return min;
+    }
+};
