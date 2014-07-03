@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int minDistance(string word1, string word2) 
+    {
+        int len1 = word1.length();
+        int len2 = word2.length();
+        
+        /*
+        if (len1 == 0)
+        {
+            return len2;
+        }
+        if (len2 == 0)
+        {
+            return len1;
+        }
+        */
+        
+        vector<vector<int> > f(len1 + 2, vector<int>(len2 + 2));
+        //int f[1000][1000];
+        //memset(f, 0, sizeof(f));
+        
+        f[0][0] = 0;
+        for (int i = 1; i <= len1; i++)
+        {
+            f[i][0] = i;
+        }
+        for (int i = 1; i <= len2; i++)
+        {
+            f[0][i] = i;
+        }
+        
+        for (int i = 1; i <= len1; i++)
+        {
+            for (int j = 1; j <= len2; j++)
+            {
+                f[i][j] = (f[i-1][j] + 1) < (f[i][j-1] + 1) ? (f[i-1][j] + 1) : (f[i][j-1] + 1);
+                
+                int cmp = (word1[i-1] == word2[j-1]) ? 0 : 1;
+                if (f[i-1][j-1] + cmp < f[i][j])
+                {
+                    f[i][j] = f[i-1][j-1] + cmp;
+                }
+            }
+        }
+        
+        return f[len1][len2];
+    }
+};
