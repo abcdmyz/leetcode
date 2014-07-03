@@ -1,0 +1,39 @@
+class Solution {
+public:
+    string addBinary(string a, string b) 
+    {
+        int lena = a.length();
+        int lenb = b.length();
+
+        if (lena < lenb)
+        {
+            a.swap(b);
+            lena = a.length();
+            lenb = b.length();
+        }
+        
+        for (int i = lena - lenb; i > 0; i--)
+        {
+            b.insert(0, 1, '0');
+        }
+        
+        string c(lena, '0');
+        int up = 0;
+        
+        for (int i = lena-1; i >= 0; i--)
+        {
+            c[i] = (((a[i] - '0') + (b[i] - '0') + up) % 2) + '0';
+            up = (((a[i] - '0') + (b[i] - '0') + up) / 2);
+        }
+        
+        if (up > 0)
+        {
+            char upchar = '0' + up;
+            c.insert(0, 1, upchar);
+        }
+        
+        
+        return c;
+    }
+    
+};
