@@ -1,0 +1,32 @@
+class Solution {
+public:
+    void dfs(int left, int right, string &cur, int k, vector<string> &all)
+    {
+        if (left == 0 && right == 0)
+        {
+            all.push_back(cur);
+            return;
+        }
+        
+        if (left - 1 >=0 && left - 1 <= right)
+        {
+            cur[k] = '(';
+            dfs(left - 1, right, cur, k+1, all);
+        }
+        if (right - 1 >= 0 && left <= right - 1)
+        {
+            cur[k] = ')';
+            dfs(left, right - 1, cur, k+1, all);
+        }
+    }
+
+    vector<string> generateParenthesis(int n) 
+    {
+        vector<string> all;
+        string cur(n + n, ' ');
+        
+        dfs(n, n, cur, 0, all);
+        
+        return all;
+    }
+};
