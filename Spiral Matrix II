@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<vector<int> > generateMatrix(int n) 
+    {
+        vector<vector<int>> matrix(n, vector<int>(n, -1));
+        
+        if (n == 0)
+        {
+            return matrix;
+        }
+        
+        int dx[4] = {0, 1, 0, -1};
+        int dy[4] = {1, 0, -1, 0};
+        
+        int count = 2;
+        int i = 0;
+        int j = 0;
+        int dir = 0;
+        matrix[i][j] = 1;
+        
+        while (count <= n*n)
+        {
+            int newi = i + dx[dir];
+            int newj = j + dy[dir];
+            
+            if (newi < 0 || newi >=n || newj < 0 || newj >=n || matrix[newi][newj] > 0)
+            {
+                dir = (dir + 1) % 4;
+                newi = i + dx[dir];
+                newj = j + dy[dir];
+            }
+            
+            matrix[newi][newj] = count;
+            i = newi;
+            j = newj;
+            count++;
+        }
+        
+        return matrix;
+    }
+};
