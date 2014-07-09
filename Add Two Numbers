@@ -1,0 +1,82 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int getListLen(ListNode *node)
+    {
+        int len = 0;
+        while (node != NULL)
+        {
+            node = node->next;
+            len++;
+        }
+        
+        return len;
+    }
+    
+    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) 
+    {
+        ListNode *s1;
+        ListNode *s2;
+        ListNode *last;
+        ListNode *head;
+        
+        if (getListLen(l1) < getListLen(l2))
+        {
+            s1 = l2;
+            s2 = l1;
+            
+            head = l2;
+        }
+        else
+        {
+            s1 = l1;
+            s2 = l2;
+            
+            head = l1;
+        }
+        
+        int carry = 0;
+        
+        
+        while (s1 != NULL && s2 != NULL)
+        {
+            int sum = s1->val + s2->val + carry;
+            carry = sum / 10;
+            sum = sum % 10;
+            
+            s1->val = sum;
+            
+            last = s1;
+            s1 = s1->next;
+            s2 = s2->next;
+        }
+        
+        while (s1 != NULL)
+        {
+            int sum = s1->val + carry;
+            carry = sum / 10;
+            sum = sum % 10;
+            
+            s1->val = sum;
+            
+            last = s1;
+            s1 = s1->next;
+        }
+        
+        if (carry > 0)
+        {
+            ListNode *newNode = new ListNode(carry);
+            last->next = newNode;
+        }
+        
+        
+        return head;
+    }
+};
