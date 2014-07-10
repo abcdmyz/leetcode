@@ -1,0 +1,69 @@
+class Solution {
+public:
+    double findMedianSortedArrays(int A[], int m, int B[], int n) 
+    {
+        int p1, p2;
+        int find = 0;
+        int sum = 0;
+        
+        if (m == 0 && n == 1)
+        {
+            return B[0];
+        }
+        if (n == 0 && m == 1)
+        {
+            return A[0];
+        }
+        
+        if (((m + n) % 2) == 0)
+        {
+            p1 = ((m + n) / 2);
+            p2 = ((m + n) / 2) + 1;
+        }
+        else
+        {
+            p1 = ((m + n) / 2) + 1;
+            p2 = p1;
+        }
+        
+        int i = 0;
+        int j = 0;
+        int count = 0;
+        
+        while (i < m || j < n)
+        {
+            int last;
+            
+            if (j >= n || A[i] < B[j])
+            {
+                last = A[i];
+                i++;
+            }
+            else //if (i >= m || A[i] >= B[j])
+            {
+                last = B[j];
+                j++;
+            }
+            
+            count++;
+            
+            if (count == p1)
+            {
+                sum += last;
+                find++;
+            }
+            if (count == p2)
+            {
+                sum += last;
+                find++;
+            }
+            
+            if (find >= 2)
+            {
+                break; 
+            }
+        }
+        
+        return ((sum * 1.0) / 2.0) ;
+    }
+};
