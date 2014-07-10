@@ -1,0 +1,43 @@
+class Solution {
+public:
+    void dfs(vector<int> &candis, int target, int index, int count, vector<int> &cur, vector<vector<int>> &solution)
+    {
+        if (count > target)
+        {
+            return;
+        }
+        else if (count == target)
+        {
+            solution.push_back(cur);
+            return;
+        }
+        
+        for (int i = index; i < candis.size(); i++)
+        {
+            if (count + candis[i] <= target)
+            {
+                cur.push_back(candis[i]);
+                dfs(candis, target, i+1, count+candis[i], cur, solution);
+                cur.pop_back();
+                
+                while (i+1 < candis.size() && candis[i] ==  candis[i+1])
+                {
+                    i++;
+                }
+            }
+        }
+    }
+
+    vector<vector<int> > combinationSum2(vector<int> &num, int target) 
+    {
+        sort(num.begin(), num.end());
+        
+        vector<vector<int>> solution;
+        vector<int> cur;
+        
+        dfs(num, target, 0, 0, cur, solution);
+        
+        return solution;
+        
+    }
+};
