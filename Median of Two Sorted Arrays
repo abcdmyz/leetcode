@@ -34,7 +34,7 @@ public:
         {
             int last;
             
-            if (j >= n || A[i] < B[j])
+            if (j >= n || ((i < m) && (A[i] < B[j])))
             {
                 last = A[i];
                 i++;
